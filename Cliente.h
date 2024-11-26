@@ -11,9 +11,9 @@ class Cliente {
 private:
     string nome;
     string cognome;
-    double saldo;               // Saldo bancario
-    double debito;              // Debiti accumulati
-    double portafoglio;         // Denaro fuori dal conto
+    double saldo;               
+    double debito;              
+    double portafoglio;         
     vector<Investimento> investimenti;
 
 public:
@@ -24,7 +24,7 @@ public:
     void visualizzaStato() const;
     bool aggiungiInvestimento(const Investimento& inv);
 
-    // Getter
+    
     double getSaldo() const;
     double getDebito() const;
 };
