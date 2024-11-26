@@ -1,2 +1,5 @@
 ﻿  appBanca.cpp
+C:\Users\user\Documents\GitHub\TPSIT_UFF\appBanca\appBanca\Banca.h(38,28): warning C4267: 'return': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+  (compilazione del file di origine 'appBanca.cpp')
+  
   appBanca.vcxproj -> C:\Users\user\Documents\GitHub\TPSIT_UFF\appBanca\x64\Debug\appBanca.exe

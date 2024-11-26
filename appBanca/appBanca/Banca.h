@@ -26,6 +26,17 @@ public:
             cliente.visualizzaStato();
         }
     }
+
+    Cliente& getCliente(int indice) {
+        if (indice < 0 || indice >= clienti.size()) {
+            throw out_of_range("Indice cliente non valido!");
+        }
+        return clienti[indice];
+    }
+
+    int numeroClienti() const {
+        return clienti.size();
+    }
 };
 
 #endif
