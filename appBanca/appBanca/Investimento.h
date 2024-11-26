@@ -13,15 +13,35 @@ private:
     int mesiPassati;      
 
 public:
-    Investimento(const string& tipo, double valore, double rendimento, int durata);
-    void avanza(int mesi);       
-    double calcolaValore() const; 
-    bool isTerminato() const;     
+    Investimento(const string& tipo, double valore, double rendimento, int durata)
+        : tipo(tipo), valore(valore), rendimento(rendimento), durata(durata), mesiPassati(0) {};
 
-    
-    string getTipo() const;
-    double getValore() const;
-    double getRendimento() const;
+    void avanza(int mesi) {
+        mesiPassati += mesi;
+    }
+
+    double calcolaValore() const {
+        if (mesiPassati >= durata) {
+            return valore + (valore * rendimento);
+        }
+        return valore;
+    }
+
+    bool isTerminato() const {
+        return mesiPassati >= durata;
+    }
+
+    string getTipo() const {
+        return tipo;
+    }
+
+    double getValore() const {
+        return valore;
+    }
+
+    double getRendimento() const {
+        return rendimento;
+    }
 };
 
 #endif
