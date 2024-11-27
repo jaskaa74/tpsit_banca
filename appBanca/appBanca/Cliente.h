@@ -46,9 +46,9 @@ public:
     }
 
     void avanzaTempo(int mesi) {
-        portafoglio += 100.0 * mesi;
+        portafoglio += 100.0 * mesi;  
         for (auto& investimento : investimenti) {
-            investimento.avanza(mesi);
+            investimento.avanza(mesi);  
             if (investimento.isTerminato()) {
                 double guadagno = investimento.calcolaGuadagno();
                 saldo += guadagno;
@@ -56,6 +56,7 @@ public:
             }
         }
     }
+
 
     void visualizzaStato() const {
         cout << "Nome: " << nome << " " << cognome << endl;

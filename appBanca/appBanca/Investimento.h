@@ -9,20 +9,43 @@ private:
     string tipo;
     double valore;
     double rendimento;
+    double rischio;
     int durata;
     int mesiPassati;
 
 public:
-    Investimento(const string& tipo, double valore, double rendimento, int durata)
-        : tipo(tipo), valore(valore), rendimento(rendimento), durata(durata), mesiPassati(0) {};
+    Investimento(const string& tipo, double valore, int durata) {
+        this->valore = valore;
+        this->durata = durata;
+        this->mesiPassati = 0;
+        this->tipo = tipo;
+
+        if (tipo == "basso") {
+            this->rendimento = 0.05;   
+            this->rischio = 0.10;      
+        }
+        else if (tipo == "medio") {
+            this->rendimento = 0.10;   
+            this->rischio = 0.20;      
+        }
+        else if (tipo == "alto") {
+            this->rendimento = 0.15;   
+            this->rischio = 0.30;      
+        }
+        else {
+            this->rendimento = 0.05;
+            this->rischio = 0.10;
+        }
+    }
 
     void avanza(int mesi) {
         mesiPassati += mesi;
     }
 
-    double calcolaGuadagno() const {
+    double calcolaGuadagno() {
         if (mesiPassati >= durata) {
-            return valore + (valore * rendimento);
+            double guadagno = valore * (1 + rendimento - rischio);
+            return guadagno > 0 ? guadagno : 0;
         }
         return valore;
     }

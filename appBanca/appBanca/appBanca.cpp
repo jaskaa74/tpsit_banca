@@ -64,7 +64,7 @@ int main() {
         }
         case 4: {
             int indice;
-            double valore, rendimento;
+            double valore;
             int durata;
             string tipo;
 
@@ -74,16 +74,13 @@ int main() {
                 cout << "Cliente non valido.\n";
                 break;
             }
-            cout << "Inserisci il tipo di investimento (breve/medio/lungo termine): ";
+            cout << "Inserisci il tipo di investimento (basso/medio/alto): ";
             cin >> tipo;
             cout << "Inserisci il valore dell'investimento: ";
             cin >> valore;
-            cout << "Inserisci il rendimento (es. 0.05 per il 5%): ";
-            cin >> rendimento;
             cout << "Inserisci la durata in mesi: ";
             cin >> durata;
-
-            Investimento nuovoInvestimento(tipo, valore, rendimento, durata);
+            Investimento nuovoInvestimento(tipo, valore, durata);
             if (banca.getCliente(indice).aggiungiInvestimento(nuovoInvestimento)) {
                 cout << "Investimento aggiunto con successo!\n";
             }
@@ -92,6 +89,7 @@ int main() {
             }
             break;
         }
+
         case 5: {
             int mesi;
             cout << "Inserisci il numero di mesi da avanzare: ";
