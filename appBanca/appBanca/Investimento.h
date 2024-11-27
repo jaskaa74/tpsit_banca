@@ -20,17 +20,12 @@ public:
         mesiPassati += mesi;
     }
 
-    double calcolaValore() const {
+    double calcolaGuadagno() const {
         if (mesiPassati >= durata) {
             return valore + (valore * rendimento);
         }
         return valore;
     }
-
-    double calcolaGuadagno() const {
-        return valore + (valore * rendimento);
-    }
-
 
     bool isTerminato() const {
         return mesiPassati >= durata;

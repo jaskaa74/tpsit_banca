@@ -92,8 +92,6 @@ int main() {
             }
             break;
         }
-
-
         case 5: {
             int mesi;
             cout << "Inserisci il numero di mesi da avanzare: ";
@@ -116,8 +114,6 @@ int main() {
             cout << "Il tempo è avanzato di " << mesi << " mesi.\n";
             break;
         }
-
-
         case 6: {
             cout << "\nStato di tutti i clienti:\n";
             banca.mostraStatiClienti();

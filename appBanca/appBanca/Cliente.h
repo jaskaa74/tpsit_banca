@@ -49,6 +49,11 @@ public:
         portafoglio += 100.0 * mesi;
         for (auto& investimento : investimenti) {
             investimento.avanza(mesi);
+            if (investimento.isTerminato()) {
+                double guadagno = investimento.calcolaGuadagno();
+                saldo += guadagno;
+                cout << "Investimento completato: Guadagno di " << guadagno << " €.\n";
+            }
         }
     }
 
