@@ -6,11 +6,11 @@ using namespace std;
 
 class Investimento {
 private:
-    string tipo;          
-    double valore;        
-    double rendimento;    
-    int durata;           
-    int mesiPassati;      
+    string tipo;
+    double valore;
+    double rendimento;
+    int durata;
+    int mesiPassati;
 
 public:
     Investimento(const string& tipo, double valore, double rendimento, int durata)
@@ -26,6 +26,11 @@ public:
         }
         return valore;
     }
+
+    double calcolaGuadagno() const {
+        return valore + (valore * rendimento);
+    }
+
 
     bool isTerminato() const {
         return mesiPassati >= durata;
@@ -45,4 +50,5 @@ public:
 };
 
 #endif
+
 

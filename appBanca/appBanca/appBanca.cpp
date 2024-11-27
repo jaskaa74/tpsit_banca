@@ -67,6 +67,7 @@ int main() {
             double valore, rendimento;
             int durata;
             string tipo;
+
             cout << "Seleziona il cliente (0 per il primo, 1 per il secondo, ecc.): ";
             cin >> indice;
             if (indice < 0 || indice >= banca.numeroClienti()) {
@@ -81,7 +82,9 @@ int main() {
             cin >> rendimento;
             cout << "Inserisci la durata in mesi: ";
             cin >> durata;
-            if (banca.getCliente(indice).aggiungiInvestimento(Investimento(tipo, valore, rendimento, durata))) {
+
+            Investimento nuovoInvestimento(tipo, valore, rendimento, durata);
+            if (banca.getCliente(indice).aggiungiInvestimento(nuovoInvestimento)) {
                 cout << "Investimento aggiunto con successo!\n";
             }
             else {
@@ -89,14 +92,32 @@ int main() {
             }
             break;
         }
+
+
         case 5: {
             int mesi;
             cout << "Inserisci il numero di mesi da avanzare: ";
             cin >> mesi;
+
             banca.avanzareTempo(mesi);
+
+            int indice;
+            cout << "Seleziona il cliente per vedere gli investimenti: ";
+            cin >> indice;
+
+            Cliente& cliente = banca.getCliente(indice);
+
+            cout << "Guadagni da investimenti del cliente:\n";
+            for (auto& inv : cliente.getInvestimenti()) {
+                cout << "Investimento tipo: " << inv.getTipo()
+                    << " Guadagno: " << inv.calcolaGuadagno() << " €\n";
+            }
+
             cout << "Il tempo è avanzato di " << mesi << " mesi.\n";
             break;
         }
+
+
         case 6: {
             cout << "\nStato di tutti i clienti:\n";
             banca.mostraStatiClienti();
@@ -112,4 +133,3 @@ int main() {
 
     return 0;
 }
-

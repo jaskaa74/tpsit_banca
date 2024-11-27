@@ -11,9 +11,9 @@ class Cliente {
 private:
     string nome;
     string cognome;
-    double saldo;               
-    double debito;              
-    double portafoglio;         
+    double saldo;
+    double debito;
+    double portafoglio;
     vector<Investimento> investimenti;
 
 public:
@@ -25,14 +25,17 @@ public:
             cout << "Fondi insufficienti nel portafoglio!" << endl;
             return;
         }
+
         portafoglio -= importo;
         saldo += importo;
+
         if (debito > 0) {
             double ripagato = min(debito, saldo);
             saldo -= ripagato;
             debito -= ripagato;
         }
     }
+
     void preleva(double importo) {
         if (importo > saldo) {
             cout << "Fondi insufficienti nel conto!" << endl;
@@ -43,7 +46,7 @@ public:
     }
 
     void avanzaTempo(int mesi) {
-        portafoglio += 100.0 * mesi; 
+        portafoglio += 100.0 * mesi;
         for (auto& investimento : investimenti) {
             investimento.avanza(mesi);
         }
@@ -66,6 +69,14 @@ public:
         return true;
     }
 
+    void aggiungiDebito(double importo) {
+        debito += importo;
+    }
+
+    vector<Investimento>& getInvestimenti() {
+        return investimenti;
+    }
+
     double getSaldo() const {
         return saldo;
     }
@@ -77,4 +88,5 @@ public:
 };
 
 #endif
+
 
