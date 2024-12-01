@@ -57,7 +57,6 @@ public:
         return 0;
     }
 
-
     bool isTerminato() const { return mesiPassati >= durata; }
     string getTipo() const { return tipo; }
     double getValore() const { return valore; }

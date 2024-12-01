@@ -47,21 +47,21 @@ public:
 
     void avanzaTempo(int mesi) {
         portafoglio += 100.0 * mesi;
-        for (auto& investimento : investimenti) {
-            investimento.avanza(mesi);
+        for (auto it = investimenti.begin(); it != investimenti.end();) {
+            it->avanza(mesi);
 
-            if (investimento.isTerminato()) {
-                double guadagno = investimento.calcolaGuadagno();
-                saldo += guadagno;
-                cout << "Investimento completato: Guadagno di " << guadagno << " €.\n";
+            if (it->isTerminato()) {
+                double guadagno = it->calcolaGuadagno();
+                saldo += it->getValore() + guadagno;
+                cout << "Investimento completato: Guadagno di " << guadagno << " € e capitale di " << it->getValore() << " € restituito.\n";
+
+                it = investimenti.erase(it);
+            }
+            else {
+                ++it;
             }
         }
-        investimenti.erase(remove_if(investimenti.begin(), investimenti.end(),
-            [](const Investimento& inv) { return inv.isTerminato(); }),
-            investimenti.end());
     }
-
-
 
     void visualizzaStato() const {
         cout << "Nome: " << nome << " " << cognome << endl;
@@ -78,8 +78,8 @@ public:
                 cout << "Investimento in corso: " << investimento.getTipo() << endl;
             }
         }
+        cout << endl;
     }
-
 
     bool aggiungiInvestimento(const Investimento& inv) {
         if (saldo < inv.getValore()) {
@@ -99,16 +99,6 @@ public:
     double getDebito() const { return debito; }
     string getNome() const { return nome; }
     string getCognome() const { return cognome; }
-
-private:
-    void rimuoviInvestimentiTerminati() {
-        investimenti.erase(remove_if(investimenti.begin(), investimenti.end(),
-            [](const Investimento& inv) { return inv.isTerminato(); }),
-            investimenti.end());
-    }
 };
 
 #endif
-
-
-

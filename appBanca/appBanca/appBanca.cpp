@@ -104,7 +104,7 @@ int main() {
         }
 
         case 6: {
-            cout << "\nStato di tutti i clienti:\n";
+            cout << "\nStato di tutti i clienti:\n\n";
             banca.mostraStatiClienti();
             break;
         }
