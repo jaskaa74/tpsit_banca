@@ -21,6 +21,13 @@ public:
         }
     }
 
+    void mostraStatoDopoAvanzamento() const {
+        for (const auto& cliente : clienti) {
+            cout << "\nStato aggiornato del cliente " << cliente.getNome() << " " << cliente.getCognome() << ":\n";
+            cliente.visualizzaStato(); 
+        }
+    }
+
     void mostraStatiClienti() const {
         for (const auto& cliente : clienti) {
             cliente.visualizzaStato();

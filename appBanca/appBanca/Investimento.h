@@ -13,60 +13,58 @@ private:
     int durata;
     int mesiPassati;
 
-public:
-    Investimento(const string& tipo, double valore, int durata) {
-        this->valore = valore;
-        this->durata = durata;
-        this->mesiPassati = 0;
-        this->tipo = tipo;
-
+    void impostaParametri(const string& tipo) {
         if (tipo == "basso") {
-            this->rendimento = 0.05;   
-            this->rischio = 0.10;      
+            rendimento = 0.05;
+            rischio = 0.10;
         }
         else if (tipo == "medio") {
-            this->rendimento = 0.10;   
-            this->rischio = 0.20;      
+            rendimento = 0.10;
+            rischio = 0.20;
         }
         else if (tipo == "alto") {
-            this->rendimento = 0.15;   
-            this->rischio = 0.30;      
+            rendimento = 0.15;
+            rischio = 0.30;
         }
         else {
-            this->rendimento = 0.05;
-            this->rischio = 0.10;
+            rendimento = 0.05;
+            rischio = 0.10;
+            this->tipo = "basso";
         }
     }
 
-    void avanza(int mesi) {
-        mesiPassati += mesi;
+public:
+    Investimento(const string& tipo, double valore, int durata)
+        : tipo(tipo), valore(valore), durata(durata), mesiPassati(0) {
+        impostaParametri(tipo);
     }
 
-    double calcolaGuadagno() {
+    void avanza(int mesi) { mesiPassati += mesi; }
+
+    double calcolaGuadagno() const {
         if (mesiPassati >= durata) {
-            double guadagno = valore * (1 + rendimento - rischio);
+            double rendimentoMensile = rendimento / 12.0;
+            double guadagno = valore;
+
+            for (int i = 0; i < durata; i++) {
+                guadagno *= (1 + rendimentoMensile);
+            }
+
+            guadagno -= valore * rischio;
+
             return guadagno > 0 ? guadagno : 0;
         }
-        return valore;
+        return 0;
     }
 
-    bool isTerminato() const {
-        return mesiPassati >= durata;
-    }
 
-    string getTipo() const {
-        return tipo;
-    }
-
-    double getValore() const {
-        return valore;
-    }
-
-    double getRendimento() const {
-        return rendimento;
-    }
+    bool isTerminato() const { return mesiPassati >= durata; }
+    string getTipo() const { return tipo; }
+    double getValore() const { return valore; }
+    double getRendimento() const { return rendimento; }
 };
 
 #endif
+
 
 

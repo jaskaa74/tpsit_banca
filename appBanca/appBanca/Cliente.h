@@ -18,7 +18,7 @@ private:
 
 public:
     Cliente(const string& nome, const string& cognome)
-        : nome(nome), cognome(cognome), saldo(0.0), debito(0.0), portafoglio(100.0) {};
+        : nome(nome), cognome(cognome), saldo(0.0), debito(0.0), portafoglio(100.0) {}
 
     void deposita(double importo) {
         if (importo > portafoglio) {
@@ -46,16 +46,21 @@ public:
     }
 
     void avanzaTempo(int mesi) {
-        portafoglio += 100.0 * mesi;  
+        portafoglio += 100.0 * mesi;
         for (auto& investimento : investimenti) {
-            investimento.avanza(mesi);  
+            investimento.avanza(mesi);
+
             if (investimento.isTerminato()) {
                 double guadagno = investimento.calcolaGuadagno();
                 saldo += guadagno;
                 cout << "Investimento completato: Guadagno di " << guadagno << " €.\n";
             }
         }
+        investimenti.erase(remove_if(investimenti.begin(), investimenti.end(),
+            [](const Investimento& inv) { return inv.isTerminato(); }),
+            investimenti.end());
     }
+
 
 
     void visualizzaStato() const {
@@ -63,7 +68,18 @@ public:
         cout << "Saldo: " << saldo << " €, Debito: " << debito << " €" << endl;
         cout << "Portafoglio: " << portafoglio << " €" << endl;
         cout << "Investimenti attivi: " << investimenti.size() << endl;
+        for (const auto& investimento : investimenti) {
+            if (investimento.isTerminato()) {
+                cout << "Investimento completato: "
+                    << investimento.getTipo() << " - Guadagno: "
+                    << investimento.calcolaGuadagno() << " €\n";
+            }
+            else {
+                cout << "Investimento in corso: " << investimento.getTipo() << endl;
+            }
+        }
     }
+
 
     bool aggiungiInvestimento(const Investimento& inv) {
         if (saldo < inv.getValore()) {
@@ -75,24 +91,24 @@ public:
         return true;
     }
 
-    void aggiungiDebito(double importo) {
-        debito += importo;
-    }
+    void aggiungiDebito(double importo) { debito += importo; }
 
-    vector<Investimento>& getInvestimenti() {
-        return investimenti;
-    }
+    vector<Investimento>& getInvestimenti() { return investimenti; }
 
-    double getSaldo() const {
-        return saldo;
-    }
+    double getSaldo() const { return saldo; }
+    double getDebito() const { return debito; }
+    string getNome() const { return nome; }
+    string getCognome() const { return cognome; }
 
-    double getDebito() const {
-        return debito;
+private:
+    void rimuoviInvestimentiTerminati() {
+        investimenti.erase(remove_if(investimenti.begin(), investimenti.end(),
+            [](const Investimento& inv) { return inv.isTerminato(); }),
+            investimenti.end());
     }
-
 };
 
 #endif
+
 
 

@@ -97,21 +97,12 @@ int main() {
 
             banca.avanzareTempo(mesi);
 
-            int indice;
-            cout << "Seleziona il cliente per vedere gli investimenti: ";
-            cin >> indice;
+            cout << "\nStato aggiornato dei clienti dopo l'avanzamento del tempo:\n";
+            banca.mostraStatoDopoAvanzamento();
 
-            Cliente& cliente = banca.getCliente(indice);
-
-            cout << "Guadagni da investimenti del cliente:\n";
-            for (auto& inv : cliente.getInvestimenti()) {
-                cout << "Investimento tipo: " << inv.getTipo()
-                    << " Guadagno: " << inv.calcolaGuadagno() << " €\n";
-            }
-
-            cout << "Il tempo è avanzato di " << mesi << " mesi.\n";
             break;
         }
+
         case 6: {
             cout << "\nStato di tutti i clienti:\n";
             banca.mostraStatiClienti();
