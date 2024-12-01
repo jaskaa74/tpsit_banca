@@ -49,7 +49,7 @@ class Investimento {
 
       guadagno -= valore * rischio;
 
-      return guadagno > 0 ? guadagno : 0;
+      return guadagno;
     }
     return 0;
   }

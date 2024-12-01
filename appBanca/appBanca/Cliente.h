@@ -52,19 +52,32 @@ class Cliente {
 
   void avanzaTempo(int mesi) {
     portafoglio += 100.0 * mesi;
+
     for (auto it = investimenti.begin(); it != investimenti.end();) {
       it->avanza(mesi);
 
       if (it->isTerminato()) {
         double guadagno = it->calcolaGuadagno();
         saldo += it->getValore() + guadagno;
-        cout << "Investimento completato: Guadagno di " << guadagno
-             << " € e capitale di " << it->getValore() << " € restituito.\n";
+
+        if (guadagno < 0) {
+          cout << "Investimento completato: Perdita di " << -guadagno
+               << " € e capitale di " << it->getValore() << " € restituito.\n";
+        } else {
+          cout << "Investimento completato: Guadagno di " << guadagno
+               << " € e capitale di " << it->getValore() << " € restituito.\n";
+        }
 
         it = investimenti.erase(it);
       } else {
         ++it;
       }
+    }
+
+    if (saldo < 0) {
+      cout << "Attenzione: Il saldo è negativo (" << saldo
+           << " €). Non è possibile effettuare nuovi investimenti finché il "
+              "debito non è ripagato.\n";
     }
   }
 
@@ -87,6 +100,11 @@ class Cliente {
   bool aggiungiInvestimento(const Investimento& inv) {
     if (saldo < inv.getValore()) {
       cout << "Fondi insufficienti per effettuare l'investimento!" << endl;
+      return false;
+    }
+    if (saldo < 0) {
+      cout << "Impossibile fare un nuovo investimento, il saldo è negativo!"
+           << endl;
       return false;
     }
     saldo -= inv.getValore();
